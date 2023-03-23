@@ -15,4 +15,12 @@ router.get('/profile', requiresAuth(), function (req, res, next) {
   });
 });
 
+router.get('/userinfo', requiresAuth(), async (req, res) => {
+  const data = await req.oidc.fetchUserInfo();
+  res.render('userinfo', {
+    userInfo: JSON.stringify(data),
+    title: 'Userinfo page'
+  });
+});
+
 module.exports = router;
